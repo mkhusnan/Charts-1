@@ -2,77 +2,42 @@
 //  ScatterChartDataSet.swift
 //  Charts
 //
+//  Created by Daniel Cohen Gindi on 26/2/15.
+//
 //  Copyright 2015 Daniel Cohen Gindi & Philipp Jahoda
 //  A port of MPAndroidChart for iOS
 //  Licensed under Apache License 2.0
 //
-//  https://github.com/danielgindi/Charts
+//  https://github.com/danielgindi/ios-charts
 //
 
 import Foundation
 import CoreGraphics
 
-open class ScatterChartDataSet: LineScatterCandleRadarChartDataSet, IScatterChartDataSet
+open class ScatterChartDataSet: LineScatterCandleChartDataSet
 {
-    
-    @objc(ScatterShape)
-    public enum Shape: Int
+    @objc
+    public enum ScatterShape: Int
     {
-        case square
-        case circle
-        case triangle
         case cross
-        case x
-        case chevronUp
-        case chevronDown
+        case triangle
+        case circle
+        case square
+        case custom
     }
     
-    /// The size the scatter shape will have
-    open var scatterShapeSize = CGFloat(10.0)
-    
-    /// The radius of the hole in the shape (applies to Square, Circle and Triangle)
-    /// **default**: 0.0
-    open var scatterShapeHoleRadius: CGFloat = 0.0
-    
-    /// Color for the hole in the shape. Setting to `nil` will behave as transparent.
-    /// **default**: nil
-    open var scatterShapeHoleColor: NSUIColor? = nil
-    
-    /// Sets the ScatterShape this DataSet should be drawn with.
-    /// This will search for an available IShapeRenderer and set this renderer for the DataSet
-    open func setScatterShape(_ shape: Shape)
-    {
-        self.shapeRenderer = ScatterChartDataSet.renderer(forShape: shape)
-    }
-    
-    /// The IShapeRenderer responsible for rendering this DataSet.
-    /// This can also be used to set a custom IShapeRenderer aside from the default ones.
-    /// **default**: `SquareShapeRenderer`
-    open var shapeRenderer: IShapeRenderer? = SquareShapeRenderer()
-    
-    open class func renderer(forShape shape: Shape) -> IShapeRenderer
-    {
-        switch shape
-        {
-        case .square: return SquareShapeRenderer()
-        case .circle: return CircleShapeRenderer()
-        case .triangle: return TriangleShapeRenderer()
-        case .cross: return CrossShapeRenderer()
-        case .x: return XShapeRenderer()
-        case .chevronUp: return ChevronUpShapeRenderer()
-        case .chevronDown: return ChevronDownShapeRenderer()
-        }
-    }
-    
+    open var scatterShapeSize = CGFloat(15.0)
+    open var scatterShape = ScatterShape.square
+    open var customScatterShape: CGPath?
+
     // MARK: NSCopying
     
     open override func copyWithZone(_ zone: NSZone?) -> AnyObject
     {
         let copy = super.copyWithZone(zone) as! ScatterChartDataSet
         copy.scatterShapeSize = scatterShapeSize
-        copy.scatterShapeHoleRadius = scatterShapeHoleRadius
-        copy.scatterShapeHoleColor = scatterShapeHoleColor
-        copy.shapeRenderer = shapeRenderer
+        copy.scatterShape = scatterShape
+        copy.customScatterShape = customScatterShape
         return copy
     }
 }

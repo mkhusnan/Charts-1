@@ -2,11 +2,13 @@
 //  CandleChartDataEntry.swift
 //  Charts
 //
+//  Created by Daniel Cohen Gindi on 4/3/15.
+//
 //  Copyright 2015 Daniel Cohen Gindi & Philipp Jahoda
 //  A port of MPAndroidChart for iOS
 //  Licensed under Apache License 2.0
 //
-//  https://github.com/danielgindi/Charts
+//  https://github.com/danielgindi/ios-charts
 //
 
 import Foundation
@@ -30,9 +32,9 @@ open class CandleChartDataEntry: ChartDataEntry
         super.init()
     }
     
-    public init(x: Double, shadowH: Double, shadowL: Double, open: Double, close: Double)
+    public init(xIndex: Int, shadowH: Double, shadowL: Double, open: Double, close: Double)
     {
-        super.init(x: x, y: (shadowH + shadowL) / 2.0)
+        super.init(value: (shadowH + shadowL) / 2.0, xIndex: xIndex)
         
         self.high = shadowH
         self.low = shadowL
@@ -40,9 +42,9 @@ open class CandleChartDataEntry: ChartDataEntry
         self.close = close
     }
     
-    public init(x: Double, shadowH: Double, shadowL: Double, open: Double, close: Double, data: AnyObject?)
+    public init(xIndex: Int, shadowH: Double, shadowL: Double, open: Double, close: Double, data: AnyObject?)
     {
-        super.init(x: x, y: (shadowH + shadowL) / 2.0, data: data)
+        super.init(value: (shadowH + shadowL) / 2.0, xIndex: xIndex, data: data)
         
         self.high = shadowH
         self.low = shadowL
@@ -50,28 +52,28 @@ open class CandleChartDataEntry: ChartDataEntry
         self.close = close
     }
     
-    /// - returns: The overall range (difference) between shadow-high and shadow-low.
+    /// - returns: the overall range (difference) between shadow-high and shadow-low.
     open var shadowRange: Double
     {
         return abs(high - low)
     }
     
-    /// - returns: The body size (difference between open and close).
+    /// - returns: the body size (difference between open and close).
     open var bodyRange: Double
     {
         return abs(open - close)
     }
     
     /// the center value of the candle. (Middle value between high and low)
-    open override var y: Double
+    open override var value: Double
     {
         get
         {
-            return super.y
+            return super.value
         }
         set
         {
-            super.y = (high + low) / 2.0
+            super.value = (high + low) / 2.0
         }
     }
     

@@ -6,7 +6,7 @@
 //    Copyright 2015 Pierre-Marc Airoldi
 //    Licensed under Apache License 2.0
 //
-//  https://github.com/danielgindi/Charts
+//  https://github.com/danielgindi/ios-charts
 //
 
 import Foundation
@@ -22,23 +22,23 @@ open class BubbleChartDataEntry: ChartDataEntry
         super.init()
     }
     
-    /// - parameter x: The index on the x-axis.
-    /// - parameter y: The value on the y-axis.
+    /// - parameter xIndex: The index on the x-axis.
+    /// - parameter val: The value on the y-axis.
     /// - parameter size: The size of the bubble.
-    public init(x: Double, y: Double, size: CGFloat)
+    public init(xIndex: Int, value: Double, size: CGFloat)
     {
-        super.init(x: x, y: y)
+        super.init(value: value, xIndex: xIndex)
         
         self.size = size
     }
     
-    /// - parameter x: The index on the x-axis.
-    /// - parameter y: The value on the y-axis.
+    /// - parameter xIndex: The index on the x-axis.
+    /// - parameter val: The value on the y-axis.
     /// - parameter size: The size of the bubble.
     /// - parameter data: Spot for additional data this Entry represents.
-    public init(x: Double, y: Double, size: CGFloat, data: AnyObject?)
+    public init(xIndex: Int, value: Double, size: CGFloat, data: AnyObject?)
     {
-        super.init(x: x, y: y, data: data)
+        super.init(value: value, xIndex: xIndex, data: data)
       
         self.size = size
     }
